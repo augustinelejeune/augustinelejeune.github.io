@@ -658,6 +658,11 @@
             filter: grayscale(20%) sepia(20%);
         }
 
+        .gallery-item video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Recadre intelligemment la vidéo pour remplir l'arche */
+        }
         /* --- Formulaire de Contact --- */
         .contact-section {
             background-color: var(--c-white);
@@ -1117,7 +1122,7 @@
                         <audio id="audio-classique" src="music.mp3" preload="none"></audio>
                     </div>
                     <p class="repertoire-details">
-                        J. Pachelbel (Canon in D) • JS Bach (Air on the G string, Partita in A minor, Suite in B minor) • G. Fauré (Sicilienne, Pavane) • C. Debussy (Clair de lune, La valse romantique, Arabesque No.1) • G. Bizet (L'Arlésienne III Menuet) • F. Schubert (Ave Maria) • ...
+                        V. Monti (Csardas) • J. Pachelbel (Canon in D) • JS Bach (Air on the G string, Partita in A minor, Suite in B minor) • G. Fauré (Sicilienne, Pavane) • C. Debussy (Clair de lune, La valse romantique, Arabesque No.1) • G. Bizet (L'Arlésienne III Menuet, Carmen - II - Entr'acte) • F. Schubert (Ave Maria) • ...
                     </p>
                 </div>
 
@@ -1151,7 +1156,7 @@
                         <audio id="audio-pop" src="LIEN_VERS_VOTRE_MP3_POP.mp3" preload="none"></audio>
                     </div>
                     <p class="repertoire-details">
-                        Ed Sheeran (Perfect) • John Legend (All of Me) • Coldplay (Viva La Vida) • Christina Perri (A Thousand Years)
+                        Astor Piazolla (Libertango, Histoire du Tango) • Jacques Dutronc (Il est 5 heure, paris s'éveille) • Edith Piaf (Hymne à l'amour) • Queen (Love of my life, Don't stop me now) • Ed Sheeran (Perfect) • Elton John (Your song, Can you feel the love tonignt) • ...
                     </p>
                 </div>
 
@@ -1168,17 +1173,25 @@
             </div>
             <!-- Item Vidéo YouTube -->
             <div class="gallery-item">
-                <!-- iframe = intégration YouTube classique -->
-                <iframe width="100%" height="100%" src="https://www.youtube.com/embed/LPvC_L-QZew?si=13yNy0PWTHvwFX2f" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                <video controls playsinline preload="metadata">
+                    <!-- Remplacez le 'src' par le lien de votre fichier mp4 -->
+                    <source src="img/romance.mp4" type="video/mp4">
+                    Votre navigateur ne prend pas en charge la lecture de la vidéo.
+                </video>
             </div>
             <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Cérémonie de Mariage">
+                <video controls playsinline preload="metadata">
+                    <!-- Remplacez le 'src' par le lien de votre fichier mp4 -->
+                    <source src="img/csardas.mp4" type="video/mp4">
+                    Votre navigateur ne prend pas en charge la lecture de la vidéo.
+                </video>
             </div>
             <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1520854221256-17451cc331bf?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Réception élégante">
-            </div>
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Concert en plein air">
+                <video controls playsinline preload="metadata">
+                    <!-- Remplacez le 'src' par le lien de votre fichier mp4 -->
+                    <source src="img/carmen.mp4" type="video/mp4">
+                    Votre navigateur ne prend pas en charge la lecture de la vidéo.
+                </video>
             </div>
             <div class="gallery-item">
                 <div style="width: 100%; height: 100%; background: var(--c-beige); display:flex; align-items:center; justify-content:center; text-align:center; padding: 2rem;">
@@ -1547,3 +1560,4 @@
     </script>
 </body>
 </html>
+    
