@@ -534,6 +534,8 @@
             padding-bottom: 1.5rem;
             transition: transform 0.35s ease, border-color 0.35s ease;
         }
+
+        
         
         @media (min-width: 900px) {
             .repertoire-item:hover {
@@ -840,6 +842,97 @@
             color: var(--c-taupe);
         }
 
+                /* --- CUSTOM VIDEO CONTROLS & OVERLAY --- */
+        .gallery-item {
+            cursor: pointer; /* Indique que l'élément est cliquable */
+        }
+        
+        .video-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 60%; /* Hauteur du dégradé */
+            background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 100%);
+            display: flex;
+            align-items: flex-end;
+            padding: 2.5rem 2rem;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none; /* Laisse le clic passer à travers pour déclencher la vidéo */
+            z-index: 2;
+        }
+        
+        .gallery-item:hover .video-overlay {
+            opacity: 1;
+        }
+        
+        .video-info {
+            color: var(--c-white);
+            transform: translateY(15px);
+            transition: transform 0.4s ease;
+            text-align: left;
+        }
+        
+        .gallery-item:hover .video-info {
+            transform: translateY(0);
+        }
+        
+        .video-info h4 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            margin-bottom: 0.3rem;
+            line-height: 1.1;
+        }
+        
+        .video-info span {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            opacity: 0.8;
+        }
+
+        /* Bouton Play Custom au centre */
+        .custom-play-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 70px;
+            height: 70px;
+            background: rgba(250, 250, 250, 0.15);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border: 1px solid rgba(250, 250, 250, 0.4);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--c-white);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 3;
+            pointer-events: none; 
+        }
+        
+        .custom-play-btn svg {
+            width: 28px;
+            height: 28px;
+            fill: currentColor;
+            margin-left: 5px; /* Centrage optique du bouton play */
+        }
+        
+        .gallery-item:hover .custom-play-btn {
+            background: rgba(250, 250, 250, 0.25);
+            transform: translate(-50%, -50%) scale(1.05);
+        }
+        
+        /* Animation quand la vidéo est en lecture */
+        .gallery-item.is-playing .custom-play-btn {
+            opacity: 0;
+            transform: translate(-50%, -50%) scale(1.3);
+        }
+
         /* --- Reponsive Tablette (Max 900px) --- */
         @media (max-width: 900px) {
             header { height: 72px; padding: 0 20px; }
@@ -964,6 +1057,27 @@
             @keyframes slideArrow {
                 0%, 100% { transform: translateX(0) rotate(45deg); opacity: 0.3; }
                 50% { transform: translateX(6px) rotate(45deg); opacity: 1; }
+            }
+
+            /* Garder l'overlay toujours visible sur mobile (pas de souris) */
+            .video-overlay {
+                opacity: 1;
+                background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 100%);
+                padding: 2rem 1.5rem;
+            }
+            .video-info {
+                transform: translateY(0);
+            }
+            .video-info h4 {
+                font-size: 1.5rem;
+            }
+            .custom-play-btn {
+                width: 60px;
+                height: 60px;
+            }
+            .custom-play-btn svg {
+                width: 24px;
+                height: 24px;
             }
         }
 
@@ -1221,24 +1335,55 @@
                 <div class="gallery-scroll-hint">Glisser</div>
             </div>
             
-            <div class="gallery-item">
-                <video controls playsinline preload="metadata" poster="img/miniature-csardas.png">
-                    <source src="img/csardas.mp4" type="video/mp4">
-                    Votre navigateur ne prend pas en charge la lecture de la vidéo.
-                </video>
+                    <div class="gallery-item">
+            <!-- Attention : on a retiré le mot "controls" ici -->
+            <video playsinline preload="metadata" poster="img/miniature-csardas.png">
+                <source src="img/csardas.mp4" type="video/mp4">
+            </video>
+            
+            <!-- Dégradé + Informations -->
+            <div class="video-overlay">
+                <div class="video-info">
+                    <h4>Mariage de Sophie & Thomas</h4>
+                    <span>12 Juillet 2024</span>
+                </div>
             </div>
-            <div class="gallery-item">
-                <video controls playsinline preload="metadata" poster="img/miniature-carmen.png">
-                    <source src="img/carmen.mp4" type="video/mp4">
-                    Votre navigateur ne prend pas en charge la lecture de la vidéo.
-                </video>
+            
+            <!-- Bouton Play Custom -->
+            <div class="custom-play-btn">
+                <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
             </div>
-            <div class="gallery-item">
-                <video controls playsinline preload="metadata" poster="img/miniature-romance.png">
-                    <source src="img/romance.mp4" type="video/mp4">
-                    Votre navigateur ne prend pas en charge la lecture de la vidéo.
-                </video>
+        </div>
+        
+        <div class="gallery-item">
+            <video playsinline preload="metadata" poster="img/miniature-carmen.png">
+                <source src="img/carmen.mp4" type="video/mp4">
+            </video>
+            <div class="video-overlay">
+                <div class="video-info">
+                    <h4>Vin d'honneur au Château</h4>
+                    <span>24 Août 2024</span>
+                </div>
             </div>
+            <div class="custom-play-btn">
+                <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+        </div>
+        
+        <div class="gallery-item">
+            <video playsinline preload="metadata" poster="img/miniature-romance.png">
+                <source src="img/romance.mp4" type="video/mp4">
+            </video>
+            <div class="video-overlay">
+                <div class="video-info">
+                    <h4>Évènement Privé Paris</h4>
+                    <span>05 Septembre 2024</span>
+                </div>
+            </div>
+            <div class="custom-play-btn">
+                <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+        </div>
             <div class="gallery-item">
                 <div style="width: 100%; height: 100%; background: var(--c-beige); display:flex; align-items:center; justify-content:center; text-align:center; padding: 2rem;">
                     <h3 style="color: var(--c-taupe); font-size: 2rem; font-style:italic; font-family: 'Cormorant Garamond', serif;">Et bientôt<br>le vôtre...</h3>
@@ -1585,26 +1730,41 @@
             }
         }
 
-        // --- 1. Gestion des Événements sur les VIDÉOS ---
-        allVideos.forEach(video => {
-            // Quand une vidéo commence : on coupe les autres vidéos ET l'audio
-            video.addEventListener('play', function() {
-                // Pause de l'audio en cours
-                pauseCurrentAudioAndResetUI();
-                
-                // Pause de toutes les AUTRES vidéos
-                allVideos.forEach(otherVideo => {
-                    if (otherVideo !== this && !otherVideo.paused) {
-                        otherVideo.pause();
-                    }
-                });
-            });
-
-            // Quand une vidéo se termine : on la "recharge" pour faire réapparaître le poster (miniature)
-            video.addEventListener('ended', function() {
-                this.load(); 
-            });
+        // --- 1. Gestion des Événements sur les VIDÉOS (CUSTOM CONTROLS) ---
+allVideos.forEach(video => {
+    const item = video.closest('.gallery-item');
+    
+    // Clic n'importe où sur l'élément de la galerie pour play/pause
+    if(item) {
+        item.addEventListener('click', function() {
+            if (video.paused) {
+                video.play();
+            } else {
+                video.pause();
+            }
         });
+    }
+
+    video.addEventListener('play', function() {
+        pauseCurrentAudioAndResetUI();
+        if(item) item.classList.add('is-playing'); // Fait disparaître le bouton Play central
+        
+        allVideos.forEach(otherVideo => {
+            if (otherVideo !== this && !otherVideo.paused) {
+                otherVideo.pause();
+            }
+        });
+    });
+    
+    video.addEventListener('pause', function() {
+        if(item) item.classList.remove('is-playing'); // Réaffiche le bouton Play
+    });
+
+    video.addEventListener('ended', function() {
+        if(item) item.classList.remove('is-playing');
+        this.load(); 
+    });
+});
 
         // --- 2. Gestion des Événements d'arrêt automatique sur les AUDIOS ---
         allAudios.forEach(audio => {
