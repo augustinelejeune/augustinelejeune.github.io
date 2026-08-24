@@ -726,12 +726,21 @@
             outline: none;
             border-bottom-color: var(--c-gold);
         }
-        .form-group input::placeholder, .form-group textarea::placeholder {
+        .form-group input::-webkit-input-placeholder, 
+        .form-group textarea::-webkit-input-placeholder {
             color: rgba(111, 90, 87, 0.4);
             font-weight: 300;
             font-style: italic;
+            opacity: 1 !important; /* Force l'affichage normal sur iOS */
         }
         
+        .form-group input::placeholder, 
+        .form-group textarea::placeholder {
+            color: rgba(111, 90, 87, 0.4);
+            font-weight: 300;
+            font-style: italic;
+            opacity: 1 !important; /* Force l'affichage normal sur iOS */
+        }
         .submit-btn {
             background: var(--c-taupe);
             color: var(--c-white);
@@ -1220,7 +1229,7 @@
                             <input type="text" id="contact-nom" placeholder="Votre nom" required>
                         </div>
                         <div class="form-group">
-                            <input type="date" id="contact-date" required>
+                            <input type="text" id="contact-date" placeholder="Date de l'événement" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'" required>
                         </div>
                     </div>
                     
