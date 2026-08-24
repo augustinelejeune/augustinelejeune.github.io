@@ -89,9 +89,12 @@
             color: var(--c-taupe);
             z-index: 1005;
             white-space: nowrap;
+            
+            /* Rendu cliquable */
             pointer-events: auto;
             text-decoration: none;
             cursor: pointer;
+            
             text-align: center;
             line-height: 1;
             text-shadow: 0 4px 20px rgba(250, 250, 250, 0.4);
@@ -137,9 +140,15 @@
             mask-image: linear-gradient(to bottom, black 30%, transparent 100%);
         }
         
-        header.is-scrolled { height: 70px; }
+        /* Au scroll, on réduit juste la hauteur */
+        header.is-scrolled {
+            height: 70px;
+        }
         
-        body.menu-open header::before { display: none !important; }  
+        /* Quand le menu mobile est ouvert, on désactive le calque flouté */
+        body.menu-open header::before {
+            display: none !important;
+        }  
         body.menu-open header {
             background: transparent !important;
             backdrop-filter: none !important;
@@ -182,8 +191,8 @@
 
         /* --- Menu Burger & Croix --- */
         .menu-toggle {
-            display: none; 
-            position: absolute; 
+            display: none; /* Toujours caché sur PC */
+            position: absolute; /* Sort le bouton du flux pour un placement parfait */
             right: 5%; 
             top: 50%; 
             transform: translateY(-50%); 
@@ -210,9 +219,18 @@
         .menu-toggle span:nth-child(2) { top: 19px; }
         .menu-toggle span:nth-child(3) { top: 28px; }
 
-        .menu-toggle.open span:nth-child(1) { top: 21px; transform: rotate(45deg); }
-        .menu-toggle.open span:nth-child(2) { opacity: 0; transform: translateX(-10px); }
-        .menu-toggle.open span:nth-child(3) { top: 21px; transform: rotate(-45deg); }
+        .menu-toggle.open span:nth-child(1) { 
+            top: 21px; 
+            transform: rotate(45deg); 
+        }
+        .menu-toggle.open span:nth-child(2) { 
+            opacity: 0; 
+            transform: translateX(-10px); 
+        }
+        .menu-toggle.open span:nth-child(3) { 
+            top: 21px; 
+            transform: rotate(-45deg); 
+        }
 
         /* Overlay Menu Mobile */
         .mobile-menu {
@@ -418,7 +436,9 @@
         }
 
         /* Prestations */
-        .prestations-section { background-color: var(--c-beige); }
+        .prestations-section { 
+            background-color: var(--c-beige); 
+        }
         
         .section-title {
             text-align: center;
@@ -447,7 +467,7 @@
             padding: 4.5rem 2rem 4rem; 
             border-radius: 200px 200px 15px 15px; 
             text-align: center;
-            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s ease, border-color 0.4s ease; 
+           transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s ease, border-color 0.4s ease; 
             position: relative;
             box-shadow: 0 10px 30px rgba(111, 90, 87, 0.04);
             border: 1px solid transparent;
@@ -495,6 +515,7 @@
         }
 
         /* Repertoire */
+
         .audio-toggle svg {
             width: 18px;
             height: 18px;
@@ -572,6 +593,12 @@
             box-shadow: 0 4px 15px rgba(201, 166, 107, 0.3);
         }
 
+        .audio-toggle svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+        }
+
         /* Gallery */
         .gallery-section {
             height: 100vh;
@@ -580,7 +607,7 @@
             color: var(--c-white);
             display: flex;
             align-items: center;
-            padding-top: 160px;
+            padding-top:160px;
         }
 
         .gallery-scroll-hint { display: none; }
@@ -618,56 +645,23 @@
             overflow: hidden;
             flex-shrink: 0;
             background-color: var(--c-pink-light);
-            position: relative;
-            filter: saturate(110%) brightness(110%);
-            
-            /* Pour centrer le bouton Play par-dessus la vidéo */
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            position: relative; /* Sécurise la vidéo à l'intérieur */
+             filter: saturate(110%) brightness(110%);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .gallery-item video {
-            position: absolute; 
+            position: absolute; /* Fixe le bug du bouton play décalé sur iOS */
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             object-fit: cover; 
-            z-index: 1;
-        }
-
-        /* --- LE NOUVEAU BOUTON PLAY PERSONNALISÉ --- */
-        .custom-play-btn {
-            position: relative;
-            z-index: 10;
-            width: 70px;
-            height: 70px;
-            background: rgba(250, 250, 250, 0.85);
-            border: 1px solid var(--c-gold);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            color: var(--c-taupe);
-            backdrop-filter: blur(4px);
-            -webkit-backdrop-filter: blur(4px);
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(111, 90, 87, 0.2);
-        }
-
-        .custom-play-btn:hover {
-            transform: scale(1.1);
-            background: var(--c-white);
-            color: var(--c-gold);
-        }
-
-        .custom-play-btn svg {
-            width: 28px;
-            height: 28px;
-            fill: currentColor;
-            margin-left: 4px; /* Recentre optiquement le triangle */
         }
 
         /* --- Formulaire de Contact --- */
@@ -713,11 +707,17 @@
             color: var(--c-taupe);
             transition: border-color 0.3s;
             border-radius: 0;
-            -webkit-appearance: none;
+            -webkit-appearance: none; /* Nettoie le style iOS */
         }
         
-        /* Correction de style pour le champ Date sur PC et focus */
+        /* Correction de style pour le champ Date */
         .form-group input[type="date"] {
+            color: rgba(111, 90, 87, 0.4);
+            font-style: italic;
+            font-weight: 300;
+        }
+        .form-group input[type="date"]:focus,
+        .form-group input[type="date"]:valid {
             color: var(--c-taupe);
             font-style: normal;
             font-weight: 400;
@@ -943,7 +943,9 @@
                 border-radius: 92vw 92vw 0 0; 
                 bottom: 0; 
             }
-            .hero-content { transform: translateY(8vh); }
+            .hero-content { 
+                transform: translateY(8vh); 
+            }
             .hero-desc { 
                 font-size: 0.75rem; 
                 letter-spacing: 0.35em; 
@@ -1125,7 +1127,7 @@
                             <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                             <svg class="icon-pause" viewBox="0 0 24 24" style="display:none;"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
                         </button>
-                        <audio id="audio-classique" src="music.mp3" preload="none"></audio>
+                        <audio id="audio-classique" src="audio/classique.mp3" preload="none"></audio>
                     </div>
                     <p class="repertoire-details">
                         V. Monti (Csardas) • J. Pachelbel (Canon in D) • JS Bach (Air on the G string, Partita in A minor, Suite in B minor) • G. Fauré (Sicilienne, Pavane) • C. Debussy (Clair de lune, La valse romantique, Arabesque No.1) • G. Bizet (L'Arlésienne III Menuet, Carmen - II - Entr'acte) • F. Schubert (Ave Maria) • ...
@@ -1142,7 +1144,7 @@
                             <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                             <svg class="icon-pause" viewBox="0 0 24 24" style="display:none;"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
                         </button>
-                        <audio id="audio-film" src="LIEN_VERS_VOTRE_MP3_FILM.mp3" preload="none"></audio>
+                        <audio id="audio-film" src="audio/film.mp3" preload="none"></audio>
                     </div>
                     <p class="repertoire-details">
                         E. Morricone (Cinema Paradisio) • A. Harlen (Over the Rainbow) • J. Hurwitz (Another day of sun, City of Stars) • ABBA (The winner takes it all) • ...
@@ -1159,7 +1161,7 @@
                             <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                             <svg class="icon-pause" viewBox="0 0 24 24" style="display:none;"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
                         </button>
-                        <audio id="audio-pop" src="LIEN_VERS_VOTRE_MP3_POP.mp3" preload="none"></audio>
+                        <audio id="audio-pop" src="audio/pop.mp3" preload="none"></audio>
                     </div>
                     <p class="repertoire-details">
                         Astor Piazolla (Libertango, Histoire du Tango) • Jacques Dutronc (Il est 5 heure, paris s'éveille) • Edith Piaf (Hymne à l'amour) • Queen (Love of my life, Don't stop me now) • Ed Sheeran (Perfect) • Elton John (Your song, Can you feel the love tonignt) • ...
@@ -1179,36 +1181,23 @@
             </div>
             
             <div class="gallery-item">
-                <video playsinline preload="metadata" poster="img/miniature-romance.jpg">
-                    <source src="img/romance.mp4" type="video/mp4">
-                    Votre navigateur ne prend pas en charge la lecture de la vidéo.
-                </video>
-                <!-- Notre bouton play customisé -->
-                <button class="custom-play-btn" aria-label="Lancer la vidéo">
-                    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                </button>
-            </div>
-            
-            <div class="gallery-item">
-                <video playsinline preload="metadata" poster="img/miniature-csardas.jpg">
+                <video controls playsinline preload="metadata" poster="img/miniature-csardas.png">
                     <source src="img/csardas.mp4" type="video/mp4">
                     Votre navigateur ne prend pas en charge la lecture de la vidéo.
                 </video>
-                <button class="custom-play-btn" aria-label="Lancer la vidéo">
-                    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                </button>
             </div>
-            
             <div class="gallery-item">
-                <video playsinline preload="metadata" poster="img/miniature-carmen.jpg">
+                <video controls playsinline preload="metadata" poster="img/miniature-carmen.png">
                     <source src="img/carmen.mp4" type="video/mp4">
                     Votre navigateur ne prend pas en charge la lecture de la vidéo.
                 </video>
-                <button class="custom-play-btn" aria-label="Lancer la vidéo">
-                    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                </button>
             </div>
-            
+            <div class="gallery-item">
+                <video controls playsinline preload="metadata" poster="img/miniature-romance.png">
+                    <source src="img/romance.mp4" type="video/mp4">
+                    Votre navigateur ne prend pas en charge la lecture de la vidéo.
+                </video>
+            </div>
             <div class="gallery-item">
                 <div style="width: 100%; height: 100%; background: var(--c-beige); display:flex; align-items:center; justify-content:center; text-align:center; padding: 2rem;">
                     <h3 style="color: var(--c-taupe); font-size: 2rem; font-style:italic; font-family: 'Cormorant Garamond', serif;">Et bientôt<br>le vôtre...</h3>
@@ -1232,8 +1221,7 @@
                             <input type="text" id="contact-nom" placeholder="Votre nom *" required>
                         </div>
                         <div class="form-group">
-                            <!-- SOLUTION UNIVERSELLE POUR LA DATE -->
-                            <input type="text" id="contact-date" placeholder="Date de l'événement (jj/mm/aaaa) *" onfocus="(this.type='date')" onblur="(this.value == '' ? this.type='text' : this.type='date')" required>
+                            <input type="date" id="contact-date" required>
                         </div>
                     </div>
                     
@@ -1463,28 +1451,6 @@
             setupGallery();
         });
 
-        // --- Système vidéo Galerie (Fix bug Android + Poster Reset) ---
-        document.querySelectorAll('.gallery-item').forEach(item => {
-            const video = item.querySelector('video');
-            const playBtn = item.querySelector('.custom-play-btn');
-            
-            if(video && playBtn) {
-                // Au clic sur le bouton Play custom
-                playBtn.addEventListener('click', () => {
-                    video.setAttribute('controls', 'controls'); // Affiche les contrôles natifs
-                    video.play(); // Lance la vidéo
-                    playBtn.style.display = 'none'; // Cache le bouton custom
-                });
-
-                // A LA FIN DE LA VIDÉO
-                video.addEventListener('ended', () => {
-                    video.removeAttribute('controls'); // Enlève les contrôles natifs
-                    video.load(); // Recharge la vidéo pour réafficher la miniature (poster)
-                    playBtn.style.display = 'flex'; // Remet le joli bouton
-                });
-            }
-        });
-
         // Validation Formulaire & Mailto
         document.getElementById('contactForm').addEventListener('submit', function(e) {
             e.preventDefault(); 
@@ -1496,12 +1462,13 @@
             const event = document.getElementById('contact-event').value.trim();
             const message = document.getElementById('contact-message').value.trim();
 
+            // Remplacement de la validation native qui bugue parfois sur Mobile
             if(!nom || !date || !localisation || !message) {
                 alert("Veuillez remplir tous les champs obligatoires (Nom, Date, Lieu et Message) avant d'envoyer votre demande.");
                 return;
             }
 
-            // Formatage de la date (si au format YYYY-MM-DD renvoyé par le navigateur)
+            // Formatage de la date (si au format YYYY-MM-DD)
             if (date && date.includes('-')) {
                 const parts = date.split('-');
                 date = `${parts[2]}/${parts[1]}/${parts[0]}`;
