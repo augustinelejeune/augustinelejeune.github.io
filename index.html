@@ -807,6 +807,39 @@
             color: var(--c-gold);
         }
 
+        /* --- GESTION DU PLACEHOLDER DATE --- */
+        .form-group.date-group {
+            position: relative;
+        }
+        
+        /* Le faux placeholder */
+        .date-placeholder {
+            position: absolute;
+            left: 0;
+            top: 10px; /* Aligné parfaitement avec les autres champs */
+            color: rgba(111, 90, 87, 0.4);
+            font-style: italic;
+            font-weight: 300;
+            pointer-events: none; /* Rend le texte invisible à la souris/au doigt pour que le clic passe au travers */
+        }
+        
+        /* On cache le placeholder si le champ est sélectionné ou si une date est remplie */
+        .date-group input:focus + .date-placeholder,
+        .date-group input:valid + .date-placeholder {
+            display: none;
+        }
+        
+        /* On masque le texte "jj/mm/aaaa" généré par défaut par Apple/Android quand le champ est vide */
+        .date-group input[type="date"]:invalid::-webkit-datetime-edit {
+            color: transparent;
+        }
+        
+        /* On réaffiche la date avec votre couleur classique quand elle est sélectionnée */
+        .date-group input[type="date"]:focus::-webkit-datetime-edit,
+        .date-group input[type="date"]:valid::-webkit-datetime-edit {
+            color: var(--c-taupe);
+        }
+
         /* --- Reponsive Tablette (Max 900px) --- */
         @media (max-width: 900px) {
             header { height: 72px; padding: 0 20px; }
