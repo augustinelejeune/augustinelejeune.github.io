@@ -1481,7 +1481,7 @@
             const sujet = encodeURIComponent(`Demande : ${typeEventDisplay}, ${date}, ${localisation} - ${nom}`);
             
             // Corps du mail
-            const corpsMessage = encodeURIComponent(`${message}\n\nCordialement,\n${nom}`);
+            const corpsMessage = encodeURIComponent(`${message}\n${nom}`);
 
             // Ouverture du client mail
             window.location.href = `mailto:${destinataire}?subject=${sujet}&body=${corpsMessage}`;
