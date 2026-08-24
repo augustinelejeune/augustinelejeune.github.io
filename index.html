@@ -1144,7 +1144,7 @@
                             <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                             <svg class="icon-pause" viewBox="0 0 24 24" style="display:none;"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
                         </button>
-                        <audio volume="0.4" id="audio-film" src="audio/film.mp3" preload="none"></audio>
+                        <audio id="audio-film" src="audio/film.mp3" preload="none"></audio>
                     </div>
                     <p class="repertoire-details">
                         E. Morricone (Cinema Paradisio) • A. Harlen (Over the Rainbow) • J. Hurwitz (Another day of sun, City of Stars) • ABBA (The winner takes it all) • ...
@@ -1161,7 +1161,7 @@
                             <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                             <svg class="icon-pause" viewBox="0 0 24 24" style="display:none;"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
                         </button>
-                        <audio volume="0.5" id="audio-pop" src="audio/pop.mp3" preload="none"></audio>
+                        <audio id="audio-pop" src="audio/pop.mp3" preload="none"></audio>
                     </div>
                     <p class="repertoire-details">
                         Astor Piazolla (Libertango, Histoire du Tango) • Jacques Dutronc (Il est 5 heure, paris s'éveille) • Edith Piaf (Hymne à l'amour) • Queen (Love of my life, Don't stop me now) • Ed Sheeran (Perfect) • Elton John (Your song, Can you feel the love tonignt) • ...
@@ -1522,6 +1522,11 @@
         let currentAudio = null;
         let currentToggle = null;
 
+        const film = document.getElementById('audio-film');
+        film.volume = 0.6
+        const pop = document.getElementById('audio-pop');
+        pop.volume = 0.7
+        
         audioToggles.forEach(toggle => {
             toggle.addEventListener('click', function(e) {
                 e.preventDefault();
