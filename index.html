@@ -391,15 +391,15 @@
             border-radius: 200px 200px 0 0;
             position: relative;
             box-shadow: 0 20px 40px rgba(111, 90, 87, 0.1);
-            margin: 40px auto 0 auto; /* Laisse de l'espace en haut pour que la tête sorte */
-            overflow: visible; /* Laisse l'image déborder */
+            margin: 40px auto 0 auto; 
+            overflow: visible; 
         }
 
         .presentation-arch img {
             position: absolute;
-            top: 40%; /* Remonte l'image pour qu'elle sorte par le haut */
+            top: 40%; 
             left: 50%;
-            width: 165%; /* Agrandit l'image par rapport au cadre */
+            width: 165%; 
             height: auto;
             transform: translate(-50%, -50%) rotate(270deg); 
             object-fit: contain; 
@@ -512,7 +512,7 @@
             width: 18px;
             height: 18px;
             fill: currentColor;
-            pointer-events: none; /* Ajoute ceci pour bloquer les clics sur le dessin ! */
+            pointer-events: none; 
         }
         .repertoire-section .container { max-width: 980px; }
         .repertoire-list {
@@ -525,11 +525,9 @@
         .repertoire-item {
             border-bottom: 1px solid var(--c-pink-light);
             padding-bottom: 1.5rem;
-            /* On remplace la transition du padding par un transform (ne casse pas la mise en page) */
             transition: transform 0.35s ease, border-color 0.35s ease;
         }
         
-        /* Sur PC uniquement : léger glissement au survol */
         @media (min-width: 900px) {
             .repertoire-item:hover {
                 transform: translateX(10px);
@@ -549,7 +547,7 @@
             display: flex;
             align-items: baseline;
             gap: 1.5rem;
-            flex-wrap: wrap; /* Autorise le retour à la ligne automatique */
+            flex-wrap: wrap; 
         }
 
         .repertoire-title-group h3 {
@@ -558,23 +556,14 @@
             margin: 0;
         }
 
-        .repertoire-title-group span {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            color: var(--c-gold);
-            letter-spacing: 2px;
-        }
-
         .repertoire-details {
             font-family: 'Montserrat', sans-serif;
             font-style: italic;
             opacity: 0.7;
             font-size: 0.95rem;
-            line-height: 1.8; /* Aère les lignes de textes */
+            line-height: 1.8; 
         }
 
-        /* Le Bouton Audio Élégant */
         .audio-toggle {
             width: 42px;
             height: 42px;
@@ -587,7 +576,7 @@
             justify-content: center;
             cursor: pointer;
             transition: all 0.3s ease;
-            flex-shrink: 0; /* Empêche le bouton d'être écrasé par le texte */
+            flex-shrink: 0; 
         }
         
         .audio-toggle:hover {
@@ -648,7 +637,7 @@
             overflow: hidden;
             flex-shrink: 0;
             background-color: var(--c-pink-light);
-            position: relative;
+            position: relative; /* Sécurise la vidéo à l'intérieur */
         }
 
         .gallery-item img {
@@ -659,10 +648,14 @@
         }
 
         .gallery-item video {
+            position: absolute; /* Fixe le bug du bouton play décalé sur iOS */
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Recadre intelligemment la vidéo pour remplir l'arche */
+            object-fit: cover; 
         }
+
         /* --- Formulaire de Contact --- */
         .contact-section {
             background-color: var(--c-white);
@@ -694,6 +687,7 @@
         .form-row .form-group {
             flex: 1; 
         }
+        
         .form-group input, .form-group textarea {
             width: 100%;
             background: transparent;
@@ -705,7 +699,22 @@
             color: var(--c-taupe);
             transition: border-color 0.3s;
             border-radius: 0;
+            -webkit-appearance: none; /* Nettoie le style iOS */
         }
+        
+        /* Correction de style pour le champ Date */
+        .form-group input[type="date"] {
+            color: rgba(111, 90, 87, 0.4);
+            font-style: italic;
+            font-weight: 300;
+        }
+        .form-group input[type="date"]:focus,
+        .form-group input[type="date"]:valid {
+            color: var(--c-taupe);
+            font-style: normal;
+            font-weight: 400;
+        }
+
         .form-group input:focus, .form-group textarea:focus {
             outline: none;
             border-bottom-color: var(--c-gold);
@@ -715,6 +724,7 @@
             font-weight: 300;
             font-style: italic;
         }
+        
         .submit-btn {
             background: var(--c-taupe);
             color: var(--c-white);
@@ -800,7 +810,7 @@
                 max-width: 380px;
                 margin: 0 auto; 
                 min-height: auto; 
-                overflow: visible; /* TRÈS IMPORTANT : Permet à l'image de sortir du cadre */
+                overflow: visible; 
             }
 
             .presentation-arch {
@@ -808,15 +818,15 @@
                 max-width: 300px;
                 aspect-ratio: 3/4;
                 min-height: auto;
-                margin: 40px auto 0 auto; /* Laisse de la place en haut pour que la tête sorte */
-                overflow: visible; /* Laisse l'image déborder */
+                margin: 40px auto 0 auto; 
+                overflow: visible; 
             }
 
             .presentation-arch img {
                 position: absolute;
-                top: 40%; /* Remonte l'image pour qu'elle sorte par le haut */
+                top: 40%; 
                 left: 50%;
-                width: 170%; /* Agrandit l'image par rapport au cadre */
+                width: 170%; 
                 height: auto;
                 transform: translate(-50%, -50%) rotate(270deg) !important;
                 object-fit: contain;
@@ -834,84 +844,78 @@
             
             .contact-arch { border-radius: 180px 180px 0 0; padding: 4rem 2rem; }
 
-            /* Aimantation verticale active pour mobile & tablette (Lenis désactivé) */
+            /* Aimantation verticale active pour mobile & tablette */
             html {
                 scroll-snap-type: y proximity;
                 scroll-behavior: auto;
             }
+            
             /* --- GALERIE : Système tactile (Tablette & Mobile) --- */
+            .gallery-section {
+                height: 100svh;
+                display: flex;
+                align-items: center;
+                padding: 0;
+                scroll-snap-align: start; 
+            }
+
+            .gallery-wrapper {
+                display: flex;
+                width: 100%;
+                padding: 0 5vw;
+                gap: 1.5rem;
+                overflow-x: auto; 
+                overflow-y: hidden;
+                scroll-snap-type: x mandatory; 
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none; 
+            }
             
-        .gallery-section {
-            height: 100svh;
-            display: flex;
-            align-items: center;
-            padding: 0;
-            scroll-snap-align: start; 
-        }
+            .gallery-wrapper::-webkit-scrollbar { display: none; }
 
-        .gallery-wrapper {
-            display: flex;
-            width: 100%;
-            padding: 0 5vw;
-            gap: 1.5rem;
+            .gallery-title {
+                width: 45vw; 
+                padding-top: 0;
+                scroll-snap-align: center;
+                flex-shrink: 0; 
+            }
             
-            overflow-x: auto; /* Autorise le glissement */
-            overflow-y: hidden;
-            scroll-snap-type: x mandatory; /* Aimantation horizontale */
+            .gallery-item {
+                width: 45vw; 
+                max-width: 400px;
+                scroll-snap-align: center;
+                border-radius: 100px 100px 0 0;
+                flex-shrink: 0; 
+            }
+
+            .gallery-scroll-hint {
+                display: inline-block;
+                font-family: 'Montserrat', sans-serif;
+                font-size: 0.6rem;
+                letter-spacing: 0.3em;
+                text-transform: uppercase;
+                color: var(--c-white);
+                opacity: 0.8;
+                margin-top: 1.5rem;
+            }
             
-            -webkit-overflow-scrolling: touch;
-            scrollbar-width: none; 
-        }
-        .gallery-wrapper::-webkit-scrollbar { 
-            display: none; 
-        }
+            .gallery-scroll-hint::after {
+                content: '';
+                display: inline-block;
+                width: 7px;
+                height: 7px;
+                border-top: 1px solid var(--c-white);
+                border-right: 1px solid var(--c-white);
+                margin-left: 15px;
+                vertical-align: middle;
+                transform: rotate(45deg);
+                animation: slideArrow 1.5s ease-in-out infinite;
+            }
 
-        /* Tailles pour Tablette (Seront écrasées sur mobile plus bas) */
-        .gallery-title {
-            width: 45vw; 
-            padding-top: 0;
-            scroll-snap-align: center;
-            flex-shrink: 0; 
-        }
-        
-        .gallery-item {
-            width: 45vw; 
-            max-width: 400px;
-            scroll-snap-align: center;
-            border-radius: 100px 100px 0 0;
-            flex-shrink: 0; 
-        }
-
-        /* --- NOUVELLE FLÈCHE MINIMALISTE --- */
-        .gallery-scroll-hint {
-            display: inline-block;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 0.6rem;
-            letter-spacing: 0.3em;
-            text-transform: uppercase;
-            color: var(--c-white);
-            opacity: 0.8;
-            margin-top: 1.5rem;
-        }
-        
-        /* Pointe de la flèche en pur CSS */
-        .gallery-scroll-hint::after {
-            content: '';
-            display: inline-block;
-            width: 7px;
-            height: 7px;
-            border-top: 1px solid var(--c-white);
-            border-right: 1px solid var(--c-white);
-            margin-left: 15px;
-            vertical-align: middle;
-            transform: rotate(45deg);
-            animation: slideArrow 1.5s ease-in-out infinite;
-        }
-
-        @keyframes slideArrow {
-            0%, 100% { transform: translateX(0) rotate(45deg); opacity: 0.3; }
-            50% { transform: translateX(6px) rotate(45deg); opacity: 1; }
-        }
+            @keyframes slideArrow {
+                0%, 100% { transform: translateX(0) rotate(45deg); opacity: 0.3; }
+                50% { transform: translateX(6px) rotate(45deg); opacity: 1; }
+            }
         }
 
         /* --- Responsive Mobile Strict (Max 600px) --- */
@@ -959,7 +963,6 @@
                 left: 50%;
                 transform: translateX(-50%); 
             }
-            /* Signature ferrée à gauche */
             .presentation-content p.font-script {
                 text-align: left !important;
                 margin-left: 5%;
@@ -991,9 +994,7 @@
             .repertoire-category span { display: block; margin-top: 6px; font-size: 0.65rem; }
             .repertoire-details { font-size: 0.8rem; }
             
-            .gallery-title {
-                width: 75vw;
-            }
+            .gallery-title { width: 75vw; }
             .gallery-title h2 { font-size: 3rem; }
             .gallery-title span { font-size: 4rem; }
 
@@ -1057,7 +1058,7 @@
         
         <div class="hero-content">
             <div class="hero-divider"></div>
-            <p class="hero-desc">Flûtiste évenementielle</p>
+            <p class="hero-desc">Flûtiste événementielle</p>
         </div>
     </section>
 
@@ -1094,7 +1095,7 @@
                 </div>
                 <div class="service-card">
                     <h3>Evènements privés</h3>
-                    <p>Anniveraires, baptèmes, soirées privées ou autres célébrations : je m'adapte à votre évènement pour créer une prestation musicale sur mesure.</p>
+                    <p>Anniversaires, baptêmes, soirées privées ou autres célébrations : je m'adapte à votre événement pour créer une prestation musicale sur mesure.</p>
                 </div>
             </div>
         </div>
@@ -1114,7 +1115,6 @@
                         <div class="repertoire-title-group">
                             <h3>Classique</h3>
                         </div>
-                        <!-- Bouton Audio (Modifiez le src de l'audio) -->
                         <button class="audio-toggle" aria-label="Écouter l'extrait classique" data-audio="audio-classique">
                             <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                             <svg class="icon-pause" viewBox="0 0 24 24" style="display:none;"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
@@ -1171,24 +1171,21 @@
                 <h2>Événements Passés</h2>
                 <div class="gallery-scroll-hint">Glisser</div>
             </div>
-            <!-- Item Vidéo YouTube -->
+            
             <div class="gallery-item">
-                <video controls playsinline preload="metadata">
-                    <!-- Remplacez le 'src' par le lien de votre fichier mp4 -->
+                <video controls playsinline preload="metadata" poster="img/miniature-romance.jpg">
                     <source src="img/romance.mp4" type="video/mp4">
                     Votre navigateur ne prend pas en charge la lecture de la vidéo.
                 </video>
             </div>
             <div class="gallery-item">
-                <video controls playsinline preload="metadata">
-                    <!-- Remplacez le 'src' par le lien de votre fichier mp4 -->
+                <video controls playsinline preload="metadata" poster="img/miniature-csardas.jpg">
                     <source src="img/csardas.mp4" type="video/mp4">
                     Votre navigateur ne prend pas en charge la lecture de la vidéo.
                 </video>
             </div>
             <div class="gallery-item">
-                <video controls playsinline preload="metadata">
-                    <!-- Remplacez le 'src' par le lien de votre fichier mp4 -->
+                <video controls playsinline preload="metadata" poster="img/miniature-carmen.jpg">
                     <source src="img/carmen.mp4" type="video/mp4">
                     Votre navigateur ne prend pas en charge la lecture de la vidéo.
                 </video>
@@ -1210,27 +1207,28 @@
                 </h2>
                 
                 <form class="contact-form" id="contactForm">
+                    <!-- Première Ligne : Nom & Date -->
                     <div class="form-row">
                         <div class="form-group">
-                            <input type="text" id="contact-nom" placeholder="Votre nom" required>
+                            <input type="text" id="contact-nom" placeholder="Votre nom *" required>
                         </div>
-                        <div class="form-group">
-                            <input type="email" id="contact-email" placeholder="Votre Email" required>
-                        </div>
-                    </div>
-                    <div class="form-row">
                         <div class="form-group">
                             <input type="date" id="contact-date" required>
                         </div>
+                    </div>
+                    
+                    <!-- Deuxième Ligne : Lieu & Type d'événement -->
+                    <div class="form-row">
                         <div class="form-group">
-                            <input type="text" id="contact-loc" placeholder="Lieu de l'événement" required>
+                            <input type="text" id="contact-loc" placeholder="Lieu de l'événement *" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="contact-event" placeholder="Type d'événement (Mariage...)">
                         </div>
                     </div>
+                    
                     <div class="form-group">
-                        <input type="text" id="contact-event" placeholder="Type d'événement (Mariage, Cocktail...)">
-                    </div>
-                    <div class="form-group">
-                        <textarea id="contact-message" placeholder="Votre message ou vos envies musicales..." rows="4" required></textarea>
+                        <textarea id="contact-message" placeholder="Votre message ou vos envies musicales... *" rows="4" required></textarea>
                     </div>
                     <button type="submit" class="submit-btn">Envoyer la demande</button>
                 </form>
@@ -1314,11 +1312,9 @@
                 const currentTop = startTop + (headerCenter - startTop) * ease;
                 const currentSize = startSize + (endSize - startSize) * ease;
 
-                // Application des styles
                 logo.style.top = `${currentTop}px`;
                 logo.style.fontSize = `${currentSize}px`;
                 
-                // Etat du header
                 header.classList.toggle('is-scrolled', window.scrollY > 50);
             });
         }
@@ -1342,7 +1338,6 @@
             document.body.style.overflow = open ? 'hidden' : '';
         });
 
-        // Fermeture propre au clic sur un lien du menu
         document.querySelectorAll('.mobile-menu a').forEach(link => {
             link.addEventListener('click', () => {
                 menuToggle.classList.remove('open');
@@ -1377,7 +1372,6 @@
             }
         });
         
-        // Le texte du hero descend (parallax) et fade out
         gsap.to(".hero-content", {
             y: 80, 
             opacity: 0,
@@ -1449,29 +1443,43 @@
             setupGallery();
         });
 
+        // Validation Formulaire & Mailto
         document.getElementById('contactForm').addEventListener('submit', function(e) {
             e.preventDefault(); 
 
-            const nom = document.getElementById('contact-nom').value;
-            const email = document.getElementById('contact-email').value;
+            // Récupération des valeurs
+            const nom = document.getElementById('contact-nom').value.trim();
             let date = document.getElementById('contact-date').value;
-            const localisation = document.getElementById('contact-loc').value; 
-            const event = document.getElementById('contact-event').value;
-            const message = document.getElementById('contact-message').value;
+            const localisation = document.getElementById('contact-loc').value.trim(); 
+            const event = document.getElementById('contact-event').value.trim();
+            const message = document.getElementById('contact-message').value.trim();
 
+            // Remplacement de la validation native qui bugue parfois sur Mobile
+            if(!nom || !date || !localisation || !message) {
+                alert("Veuillez remplir tous les champs obligatoires (Nom, Date, Lieu et Message) avant d'envoyer votre demande.");
+                return;
+            }
+
+            // Formatage de la date (si au format YYYY-MM-DD)
             if (date && date.includes('-')) {
                 const parts = date.split('-');
                 date = `${parts[2]}/${parts[1]}/${parts[0]}`;
             }
 
-            const destinataire = "Augustine Lejeune <lejeune.augustine@gmail.com>";
-            const sujet = encodeURIComponent(`Demande de prestation : ${event}, ${date}, ${localisation} - ${nom}`);
-            const corpsMessage = encodeURIComponent(`${message}\n\n ${nom}`);
+            const destinataire = "lejeune.augustine@gmail.com";
+            
+            // Construction de l'objet du mail
+            const typeEventDisplay = event ? event : "Prestation";
+            const sujet = encodeURIComponent(`Demande : ${typeEventDisplay}, ${date}, ${localisation} - ${nom}`);
+            
+            // Corps du mail
+            const corpsMessage = encodeURIComponent(`${message}\n\nCordialement,\n${nom}`);
 
+            // Ouverture du client mail
             window.location.href = `mailto:${destinataire}?subject=${sujet}&body=${corpsMessage}`;
         });
 
-        // Système d'ancres fluides compatible Lenis (PC) et Natif (Mobile)
+        // Système d'ancres fluides
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault(); 
@@ -1481,14 +1489,12 @@
                 
                 if (targetElement) {
                     if (lenis) {
-                        // CAS SPÉCIAL PC : Si on clique sur Galerie, on vise directement le début du Pin GSAP
                         if (targetId === '#galerie' && window.innerWidth > 900 && galleryScroll && galleryScroll.scrollTrigger) {
                             lenis.scrollTo(galleryScroll.scrollTrigger.start, {
                                 duration: 1.2,
                                 easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
                             });
                         } else {
-                            // Autres liens sur PC
                             lenis.scrollTo(targetElement, {
                                 offset: -80,
                                 duration: 1.2,
@@ -1496,7 +1502,6 @@
                             });
                         }
                     } else {
-                        // Sur Mobile : Défilement natif fluide
                         const y = targetElement.getBoundingClientRect().top + window.scrollY - 80;
                         window.scrollTo({ top: y, behavior: 'smooth' });
                     }
@@ -1519,14 +1524,9 @@
                 const iconPlay = this.querySelector('.icon-play');
                 const iconPause = this.querySelector('.icon-pause');
 
-                // 🚨 LA CORRECTION EST LÀ : 
-                // On vérifie l'état visuel du bouton (la classe "playing") au lieu du fichier audio
                 const isPlaying = this.classList.contains('playing');
 
-                // 1. SI ON CLIQUE POUR JOUER (le bouton n'est pas encore actif)
                 if (!isPlaying) {
-                    
-                    // Si une autre musique tournait, on la coupe proprement
                     if (currentToggle && currentToggle !== this) {
                         currentAudio.pause();
                         currentToggle.querySelector('.icon-pause').style.display = 'none';
@@ -1534,7 +1534,6 @@
                         currentToggle.classList.remove('playing');
                     }
                     
-                    // On lance cette musique-ci
                     audioEl.play();
                     iconPlay.style.display = 'none';
                     iconPause.style.display = 'block';
@@ -1543,10 +1542,7 @@
                     currentAudio = audioEl;
                     currentToggle = this;
                     
-                } 
-                // 2. SI ON CLIQUE POUR METTRE EN PAUSE (le bouton est déjà actif)
-                else {
-                    
+                } else {
                     audioEl.pause();
                     iconPlay.style.display = 'block';
                     iconPause.style.display = 'none';
@@ -1560,4 +1556,3 @@
     </script>
 </body>
 </html>
-    
