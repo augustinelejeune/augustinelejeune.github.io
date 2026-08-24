@@ -906,13 +906,18 @@
         .date-placeholder {
             position: absolute;
             left: 0;
-            top: 10px; /* Aligné parfaitement avec les autres champs */
+            top: 0; /* On force le top à 0 */
+            width: 100%;
+            padding: 10px 0; /* On reprend le padding EXACT de l'input */
+            font-family: 'Montserrat', sans-serif; /* On force la police */
+            font-size: 1rem; /* On force la taille */
+            line-height: normal; /* On annule le line-height du body pour coller à l'input */
             color: rgba(111, 90, 87, 0.4);
             font-style: italic;
             font-weight: 300;
-            pointer-events: none; /* Rend le texte invisible à la souris/au doigt pour que le clic passe au travers */
+            pointer-events: none;
         }
-        
+                
         /* On cache le placeholder si le champ est sélectionné ou si une date est remplie */
         .date-group input:focus + .date-placeholder,
         .date-group input:valid + .date-placeholder {
