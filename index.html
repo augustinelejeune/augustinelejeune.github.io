@@ -12,7 +12,6 @@
     <meta property="og:image" content="img/partage-image.png" />
     <meta name="twitter:image" content="img/partage-image.png" />
 
-
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -191,8 +190,8 @@
 
         /* --- Menu Burger & Croix --- */
         .menu-toggle {
-            display: none; /* Toujours caché sur PC */
-            position: absolute; /* Sort le bouton du flux pour un placement parfait */
+            display: none;
+            position: absolute;
             right: 5%; 
             top: 50%; 
             transform: translateY(-50%); 
@@ -959,7 +958,7 @@
             
             /* PRESENTATION MOBILE */
             .presentation-section { padding-top: 80px; }
-           
+            
             .presentation-content h2 { 
                 font-size: 2.2rem; 
                 margin-top: 1.5rem; 
@@ -1517,16 +1516,71 @@
             });
         });
 
-        // --- Lecteur Audio (Répertoire) ---
+        // --- GESTION GLOBALE DES MÉDIAS (Audio & Vidéo) ---
         const audioToggles = document.querySelectorAll('.audio-toggle');
+        const allVideos = document.querySelectorAll('video');
+        const allAudios = document.querySelectorAll('audio');
+
         let currentAudio = null;
         let currentToggle = null;
 
+        // Réglages volumes (si applicables)
         const film = document.getElementById('audio-film');
-        film.volume = 0.3
+        if (film) film.volume = 0.3;
         const pop = document.getElementById('audio-pop');
-        pop.volume = 0.6
+        if (pop) pop.volume = 0.6;
         
+        // Fonction pour mettre en pause l'audio en cours et réinitialiser son icône
+        function pauseCurrentAudioAndResetUI() {
+            if (currentToggle && currentAudio) {
+                currentAudio.pause();
+                currentToggle.querySelector('.icon-pause').style.display = 'none';
+                currentToggle.querySelector('.icon-play').style.display = 'block';
+                currentToggle.classList.remove('playing');
+                currentAudio = null;
+                currentToggle = null;
+            }
+        }
+
+        // --- 1. Gestion des Événements sur les VIDÉOS ---
+        allVideos.forEach(video => {
+            // Quand une vidéo commence : on coupe les autres vidéos ET l'audio
+            video.addEventListener('play', function() {
+                // Pause de l'audio en cours
+                pauseCurrentAudioAndResetUI();
+                
+                // Pause de toutes les AUTRES vidéos
+                allVideos.forEach(otherVideo => {
+                    if (otherVideo !== this && !otherVideo.paused) {
+                        otherVideo.pause();
+                    }
+                });
+            });
+
+            // Quand une vidéo se termine : on la "recharge" pour faire réapparaître le poster (miniature)
+            video.addEventListener('ended', function() {
+                this.load(); 
+            });
+        });
+
+        // --- 2. Gestion des Événements d'arrêt automatique sur les AUDIOS ---
+        allAudios.forEach(audio => {
+            // À la fin d'une piste audio, on remet le bouton sur Play automatiquement
+            audio.addEventListener('ended', function() {
+                const toggle = document.querySelector(`.audio-toggle[data-audio="${this.id}"]`);
+                if (toggle) {
+                    toggle.querySelector('.icon-pause').style.display = 'none';
+                    toggle.querySelector('.icon-play').style.display = 'block';
+                    toggle.classList.remove('playing');
+                }
+                if (currentAudio === this) {
+                    currentAudio = null;
+                    currentToggle = null;
+                }
+            });
+        });
+
+        // --- 3. Gestion des clics sur les BOUTONS AUDIOS ---
         audioToggles.forEach(toggle => {
             toggle.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -1536,16 +1590,14 @@
                 
                 const iconPlay = this.querySelector('.icon-play');
                 const iconPause = this.querySelector('.icon-pause');
-
                 const isPlaying = this.classList.contains('playing');
 
                 if (!isPlaying) {
-                    if (currentToggle && currentToggle !== this) {
-                        currentAudio.pause();
-                        currentToggle.querySelector('.icon-pause').style.display = 'none';
-                        currentToggle.querySelector('.icon-play').style.display = 'block';
-                        currentToggle.classList.remove('playing');
-                    }
+                    // Si on lance une musique, on met en pause l'ancienne
+                    pauseCurrentAudioAndResetUI();
+                    
+                    // On met aussi en pause toutes les vidéos potentielles
+                    allVideos.forEach(vid => vid.pause());
                     
                     audioEl.play();
                     iconPlay.style.display = 'none';
@@ -1556,6 +1608,7 @@
                     currentToggle = this;
                     
                 } else {
+                    // Pause manuelle de la musique
                     audioEl.pause();
                     iconPlay.style.display = 'block';
                     iconPause.style.display = 'none';
