@@ -705,11 +705,11 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 40px;
-            height: 40px;
+            width: 50px;
+            height: 50px;
             background: rgba(250, 250, 250, 0.15);
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
+            backdrop-filter: blur(3px);
+            -webkit-backdrop-filter: blur(3px);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -1057,14 +1057,22 @@
             }
 
             /* Garder l'overlay toujours visible sur mobile (pas de souris) */
+           /* Overlay visible par défaut sur mobile avec moins de padding */
             .video-overlay {
                 opacity: 1;
                 background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 100%);
-                padding: 2rem 1.5rem;
+                padding: 1rem 1rem 1.5rem 1rem; /* Padding réduit pour prendre moins de place */
             }
+
+            /* Fait disparaître le texte et le dégradé noir quand la vidéo est en lecture */
+            .gallery-item.is-playing .video-overlay {
+                opacity: 0;
+            }
+
             .video-info {
                 transform: translateY(0);
             }
+            
             .video-info h4 {
                 font-size: 1.5rem;
             }
@@ -1726,57 +1734,57 @@
         }
 
         // --- 1. Gestion des Événements sur les VIDÉOS (CUSTOM CONTROLS) ---
-allVideos.forEach(video => {
-    const item = video.closest('.gallery-item');
-    
-    // Clic n'importe où sur l'élément de la galerie pour play/pause
-    if(item) {
-        item.addEventListener('click', function() {
-            if (video.paused) {
-                video.play();
-            } else {
-                video.pause();
+        allVideos.forEach(video => {
+            const item = video.closest('.gallery-item');
+            
+            // Clic n'importe où sur l'élément de la galerie pour play/pause
+            if(item) {
+                item.addEventListener('click', function() {
+                    if (video.paused) {
+                        video.play();
+                    } else {
+                        video.pause();
+                    }
+                });
             }
-        });
-    }
 
-    video.addEventListener('play', function() {
-        pauseCurrentAudioAndResetUI();
-        if(item) item.classList.add('is-playing'); // Fait disparaître le bouton Play central
-        
-        allVideos.forEach(otherVideo => {
-            if (otherVideo !== this && !otherVideo.paused) {
-                otherVideo.pause();
-            }
-        });
-    });
-    
-    video.addEventListener('pause', function() {
-        if(item) item.classList.remove('is-playing'); // Réaffiche le bouton Play
-    });
+            video.addEventListener('play', function() {
+                pauseCurrentAudioAndResetUI();
+                if(item) item.classList.add('is-playing'); // Fait disparaître le bouton Play central
+                
+                allVideos.forEach(otherVideo => {
+                    if (otherVideo !== this && !otherVideo.paused) {
+                        otherVideo.pause();
+                    }
+                });
+            });
+            
+            video.addEventListener('pause', function() {
+                if(item) item.classList.remove('is-playing'); // Réaffiche le bouton Play
+            });
 
-    video.addEventListener('ended', function() {
-        if(item) item.classList.remove('is-playing');
-        this.load(); 
-    });
-});
-
-        // --- 2. Gestion des Événements d'arrêt automatique sur les AUDIOS ---
-        allAudios.forEach(audio => {
-            // À la fin d'une piste audio, on remet le bouton sur Play automatiquement
-            audio.addEventListener('ended', function() {
-                const toggle = document.querySelector(`.audio-toggle[data-audio="${this.id}"]`);
-                if (toggle) {
-                    toggle.querySelector('.icon-pause').style.display = 'none';
-                    toggle.querySelector('.icon-play').style.display = 'block';
-                    toggle.classList.remove('playing');
-                }
-                if (currentAudio === this) {
-                    currentAudio = null;
-                    currentToggle = null;
-                }
+            video.addEventListener('ended', function() {
+                if(item) item.classList.remove('is-playing');
+                this.load(); 
             });
         });
+
+                // --- 2. Gestion des Événements d'arrêt automatique sur les AUDIOS ---
+                allAudios.forEach(audio => {
+                    // À la fin d'une piste audio, on remet le bouton sur Play automatiquement
+                    audio.addEventListener('ended', function() {
+                        const toggle = document.querySelector(`.audio-toggle[data-audio="${this.id}"]`);
+                        if (toggle) {
+                            toggle.querySelector('.icon-pause').style.display = 'none';
+                            toggle.querySelector('.icon-play').style.display = 'block';
+                            toggle.classList.remove('playing');
+                        }
+                        if (currentAudio === this) {
+                            currentAudio = null;
+                            currentToggle = null;
+                        }
+                    });
+                });
 
         // --- 3. Gestion des clics sur les BOUTONS AUDIOS ---
         audioToggles.forEach(toggle => {
