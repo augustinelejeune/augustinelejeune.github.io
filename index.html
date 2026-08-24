@@ -647,7 +647,95 @@
             flex-shrink: 0;
             background-color: var(--c-pink-light);
             position: relative; /* Sécurise la vidéo à l'intérieur */
-             filter: saturate(110%) brightness(110%);
+            filter: saturate(110%) brightness(110%);
+            cursor: pointer; /* Indique que l'élément est cliquable */
+        }
+
+        /* --- CUSTOM VIDEO CONTROLS & OVERLAY --- */
+        
+        .video-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 25%; /* Hauteur du dégradé */
+            background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 100%);
+            display: flex;
+            align-items: flex-end;
+            padding: 1.5rem 1.5rem;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none; /* Laisse le clic passer à travers pour déclencher la vidéo */
+            z-index: 2;
+        }
+        
+        .gallery-item:hover .video-overlay {
+            opacity: 1;
+        }
+        
+        .video-info {
+            color: var(--c-white);
+            transform: translateY(15px);
+            transition: transform 0.4s ease;
+            text-align: left;
+        }
+        
+        .gallery-item:hover .video-info {
+            transform: translateY(0);
+        }
+        
+        .video-info h4 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            margin-bottom: 0.3rem;
+            line-height: 1.1;
+        }
+        
+        .video-info span {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            opacity: 0.8;
+        }
+
+        /* Bouton Play Custom au centre */
+        .custom-play-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 40px;
+            background: rgba(250, 250, 250, 0.15);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--c-white);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 3;
+            pointer-events: none; 
+        }
+        
+        .custom-play-btn svg {
+            width: 28px;
+            height: 28px;
+            fill: currentColor;
+            margin-left: 5px; /* Centrage optique du bouton play */
+        }
+        
+        .gallery-item:hover .custom-play-btn {
+            background: rgba(250, 250, 250, 0.25);
+            transform: translate(-50%, -50%) scale(1.05);
+        }
+        
+        /* Animation quand la vidéo est en lecture */
+        .gallery-item.is-playing .custom-play-btn {
+            opacity: 0;
+            transform: translate(-50%, -50%) scale(1.3);
         }
 
         .gallery-item img {
@@ -840,97 +928,6 @@
         .date-group input[type="date"]:focus::-webkit-datetime-edit,
         .date-group input[type="date"]:valid::-webkit-datetime-edit {
             color: var(--c-taupe);
-        }
-
-                /* --- CUSTOM VIDEO CONTROLS & OVERLAY --- */
-        .gallery-item {
-            cursor: pointer; /* Indique que l'élément est cliquable */
-        }
-        
-        .video-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 60%; /* Hauteur du dégradé */
-            background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 100%);
-            display: flex;
-            align-items: flex-end;
-            padding: 2.5rem 2rem;
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            pointer-events: none; /* Laisse le clic passer à travers pour déclencher la vidéo */
-            z-index: 2;
-        }
-        
-        .gallery-item:hover .video-overlay {
-            opacity: 1;
-        }
-        
-        .video-info {
-            color: var(--c-white);
-            transform: translateY(15px);
-            transition: transform 0.4s ease;
-            text-align: left;
-        }
-        
-        .gallery-item:hover .video-info {
-            transform: translateY(0);
-        }
-        
-        .video-info h4 {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.8rem;
-            margin-bottom: 0.3rem;
-            line-height: 1.1;
-        }
-        
-        .video-info span {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            opacity: 0.8;
-        }
-
-        /* Bouton Play Custom au centre */
-        .custom-play-btn {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 70px;
-            height: 70px;
-            background: rgba(250, 250, 250, 0.15);
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
-            border: 1px solid rgba(250, 250, 250, 0.4);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--c-white);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 3;
-            pointer-events: none; 
-        }
-        
-        .custom-play-btn svg {
-            width: 28px;
-            height: 28px;
-            fill: currentColor;
-            margin-left: 5px; /* Centrage optique du bouton play */
-        }
-        
-        .gallery-item:hover .custom-play-btn {
-            background: rgba(250, 250, 250, 0.25);
-            transform: translate(-50%, -50%) scale(1.05);
-        }
-        
-        /* Animation quand la vidéo est en lecture */
-        .gallery-item.is-playing .custom-play-btn {
-            opacity: 0;
-            transform: translate(-50%, -50%) scale(1.3);
         }
 
         /* --- Reponsive Tablette (Max 900px) --- */
